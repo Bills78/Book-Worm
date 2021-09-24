@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.links a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.links a:hover {
+  color: blue;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.addBook form {
+  display: flex;
+  flex-direction: column;
+  margin: 0em auto;
+  align-items: center;
+  height: 20em;
+  justify-content: space-between;
+}

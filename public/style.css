@@ -13,14 +13,12 @@ h1 {
 .links {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
 }
 
 .links a {
   text-decoration: none;
   color: black;
-
+  margin-bottom: .2em;
 }
 
 .links a:hover {
@@ -32,11 +30,40 @@ h1 {
   margin: 0 auto;
 }
 
-.addBook form {
+.modal {
+  z-index: 10;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  margin: 0em auto;
+  margin: 0em 5em;
   align-items: center;
   height: 20em;
   justify-content: space-between;
+  padding: .5em;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.btns{
+  margin: 1em;
+}
+
+.popup-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.books {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.book {
+  margin: 2em;
+  width: 190px;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 1em;
 }

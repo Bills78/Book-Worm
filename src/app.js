@@ -1,7 +1,6 @@
-import Nav from "./Navbar"
+import Nav from "./comps/Navbar"
 import Home from './Home'
 import About from './About'
-import AddBook from './NewBook'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
@@ -17,9 +16,6 @@ function App() {
 						</Route>
 						<Route path='/about'>
 							<About />
-						</Route>
-						<Route path='/newBook'>
-							<AddBook />
 						</Route>
 					</Switch>
 				</div>

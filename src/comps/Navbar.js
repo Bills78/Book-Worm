@@ -1,18 +1,23 @@
 import React from "react";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
 
-function Nav() {
-    return (
-        <div className='navbar'>
-            <div className='titles'>
-                <h1>Book Worm</h1>
-                <h3>The App to Help You Finish Books</h3>
-            </div>
-            <div className='links'>
-                <a href='/'>Home</a>
-                <a href='/about'>About</a>
-            </div>
-        </div>
-    )
+function Navigation() {
+  return (
+    <Navbar bg="dark" variant="dark" expand="xl">
+      <Container fluid="xl">
+        <Navbar.Brand href="#home">~Book~Worm~</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  )
 }
 
-export default Nav;
+export default Navigation;

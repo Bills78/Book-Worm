@@ -1,14 +1,14 @@
-import Nav from "./comps/Navbar"
+import Navigation from "./comps/Navbar"
 import Home from './Home'
 import About from './About'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	return (
 		<Router>
 			<div>
-				<Nav />
+				<Navigation />
 				<div className='content'>
 					<Switch>
 						<Route exact path='/'>

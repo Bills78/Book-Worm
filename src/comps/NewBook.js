@@ -1,131 +1,129 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Book from "./Book";
-import Popup from "reactjs-popup";
 import uniqid from "uniqid";
+import Button from "react-bootstrap/Button";
+import PopUp from "./Modal";
 
 
-class AddBook extends React.Component {
-  constructor(props) {
-    super(props);
+function AddBook() {
+  const [book, setBook] = useState({
+      title: '',
+      author: '',
+      pages: '',
+      current: '',
+      status: false,
+      id: uniqid()
+    })
+  const [books, setBooks] = useState(null);
+  const [modalShow, setModalShow] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
 
-    this.state = {
-      book: {
-        title: '',
-        author: '',
-        pages: '',
-        current: '',
-        status: false,
-        id: uniqid()
-      },
-      books: [],
-    };
-    
-    this.changeStatus = this.changeStatus.bind(this)
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmitBook = this.onSubmitBook.bind(this);
-  }
+    useEffect(() => {
+      fetch('http://localhost:8000/books')
+        .then(res => {
+          if (!res.ok) {
+            throw Error('could not fetch data... sorry...')
+          }
+          return res.json()
+        })
+        .then(data => {
+          setBooks(data);
+          setIsPending(false);
+        })
+        .catch(err => {
+          setIsPending(false);
+          setError(err.message);
+        })
+    }, [setBooks]);
 
-  onSubmitBook = (e) => {
-    e.preventDefault();
-    this.setState({
-      books: this.state.books.concat(this.state.book),
-      book: {
-        title: '',
-        author: '',
-        pages: '',
-        current: '',
-        status: false,
-        id: uniqid()
-      },
-    });
-  };
-
-  handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
-    this.setState({
-      book: {
-        ...this.state.book,
-        [name]: value
-      }
+    setBook(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  function handleSubmitBook() {
+    const newBook = book;
+    fetch('http://localhost:8000/books', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBook)
+    }).then(() => {
+      console.log('new book added')
     });
-  };
+    setBook({
+      title: '',
+      author: '',
+      pages: '',
+      current: '',
+      status: false,
+      id: uniqid()
+    });
+    setModalShow(false);
+    };
 
-  handleDelete = (bookId) => {
-    const books = this.state.books.filter(book => book.id !== bookId);
-    this.setState({books: books});
-  };
- 
-  changeStatus = (bookId) => {
-    const { books } = this.state;
-    const i = books.findIndex(book => book.id === bookId);
-    let book = books[i]
-    let complete = book.status === false ? true : false;
-    book.status = complete
-    books[i] = book;
-    this.setState({books})
-    console.log(book.status);
-  }
+    function deleteBook(bookId) {
+      fetch(`http://localhost:8000/books/${bookId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(data => {
+        setBooks(data);
+      });
+    };
 
-  render() {
-    const { book, books } = this.state;
+    function update() {
+      setShowUpdate(true);
+    };
+
+    function updatePage(bookId){
+      const newCurrent = book.current;
+
+      fetch(`http://localhost:8000/books/${bookId}`, {
+        method:"PATCH",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(
+          {
+            "current": newCurrent
+          },
+        ),
+      });
+    };
 
     return (
-      <div>
-      <Popup 
-        trigger={<button>Add A Book</button>}
-        modal
-        >
-        {close => (
-        <form onSubmit={this.onSubmitBook}>
-          <h2>Add A Book</h2>
-            <label htmlFor="title" >Title: </label>
-              <input
-                onChange={this.handleChange}
-                value={book.title}
-                type="text" 
-                name="title"
-                required
-                 />
-            <label htmlFor="author" >Author: </label>
-              <input
-                onChange={this.handleChange}
-                value={book.author}
-                type="text" 
-                name="author"
-                required
-                 />
-            <label htmlFor="pages" ># of Pages: </label>
-              <input
-                onChange={this.handleChange}
-                value={book.pages}
-                type="text" 
-                name="pages"
-                required
-                 />
-            <label htmlFor="current" >Current: </label>
-              <input
-                onChange={this.handleChange}
-                value={book.current}
-                type="text" 
-                name="current"
-                required
-                 />
-            <div className="btns">
-            <button type="submit">Add Book</button>
-            <button type="button" onClick={close}>Close</button>
-            </div>
-          </form>
-          )}
-        </Popup>
-        <Book  
-          books={books} 
-          onDelete={this.handleDelete}
-          onComplete={this.changeStatus}
-          />
+        <div>
+        <Button variant="primary" onClick={() => {
+          setModalShow(true);
+          }}>
+        Add A Book
+        </Button>
+
+        <PopUp 
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          onChange={handleChange}
+          onSubmit={handleSubmitBook}
+          book={book}
+        />
+        
+        { error && <div>{error}</div>}
+        { isPending && <div>Loading...</div>}
+        {books && <Book
+          books={books}
+          onDelete={deleteBook}
+          onUpdate={update}
+          show={showUpdate}
+          onHide={() => setShowUpdate(false)}
+          updatePage={updatePage}
+          onChange={handleChange}
+        />}
       </div>
     )
   }
-}
 
 export default AddBook;

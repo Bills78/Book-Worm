@@ -1,20 +1,49 @@
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import ProBar from './ProBar';
+import PageUpdate from './PageUpdate'
+
 function Book(props) {
-  const { books, onDelete, onComplete} = props;
+  const { books, onDelete, onUpdate, show, onHide, updatePage, handleChange } = props;
+
+  function _percent(total, current) {
+    const per = (current / total) * 100;
+    return Math.floor(per);
+  }
 
   return (
     <div className='books'>
       {books.map((book) => {
-          return<div className='book'  key={book.id}>
-            <h2>Title: {book.title}</h2>
-            <h3>Author(s): {book.author}</h3>
-            <h3># of Pages: {book.pages}</h3>
-            <h3>Current Page: {book.current}</h3>
-            <div className="bookbtns">
-              <button onClick={() => onDelete(book.id)}>Delete</button>
-              <button onClick={() => onComplete(book.id)}>Completed</button>
+          let className = 'is-unread';
+          if (book.status === true) {
+            className = 'is-read'
+          }
+          return (
+            <div className={className}  key={book.id}>
+              <Card>
+                <Card.Header as="h5">{book.title}</Card.Header>
+                <Card.Body>
+                  <Card.Title>Written By: {book.author}</Card.Title>
+                  <Card.Text>
+                    # of Pages: {book.pages}
+                  </Card.Text>
+                  <Card.Text as="div">
+                    Progress: <ProBar now={_percent(book.pages, book.current)} />
+                  </Card.Text>
+                    <Button variant="danger" onClick={() => onDelete(book.id)}>Delete</Button>
+                    <Button variant="success" onClick={() => onUpdate()}>Update</Button>
+
+                    <PageUpdate 
+                      book={book}
+                      show={show}
+                      onHide={onHide}
+                      onSubmit={updatePage}
+                      onChange={handleChange}
+                    />
+                </Card.Body>
+              </Card>
             </div>
-            </div>
-        })}
+          )})}
       </div>
     );
 };

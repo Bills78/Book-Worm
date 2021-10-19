@@ -1,69 +1,21 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid black;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-h1 {
-  margin: 0;
-}
-
-.links {
-  display: flex;
-  flex-direction: column;
-}
-
-.links a {
-  text-decoration: none;
-  color: black;
-  margin-bottom: .2em;
-}
-
-.links a:hover {
-  color: blue;
-}
-
-.content {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.modal {
-  z-index: 10;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  margin: 0em 5em;
-  align-items: center;
-  height: 20em;
-  justify-content: space-between;
-  padding: .5em;
-  background-color: white;
-  border: 1px solid black;
-  border-radius: 25px;
-}
-
-.btns{
-  margin: 1em;
-}
-
-.popup-overlay {
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
 .books {
   display: flex;
   flex-wrap: wrap;
 }
 
-.book {
+.is-unread {
   margin: 2em;
-  width: 190px;
-  border: 1px solid black;
-  border-radius: 25px;
-  padding: 1em;
+}
+
+.is-read {
+  margin: 2em;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+.add-book {
+  margin-top: 1em;
 }

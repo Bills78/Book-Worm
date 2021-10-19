@@ -4,7 +4,7 @@ import ProBar from './ProBar';
 import PageUpdate from './PageUpdate'
 
 function Book(props) {
-  const { books, onDelete, onUpdate, show, onHide, updatePage, handleChange } = props;
+  const { books, onDelete, onUpdate, show, onHide, updatePage, onChange } = props;
 
   function _percent(total, current) {
     const per = (current / total) * 100;
@@ -38,7 +38,7 @@ function Book(props) {
                       show={show}
                       onHide={onHide}
                       onSubmit={updatePage}
-                      onChange={handleChange}
+                      onChange={onChange}
                     />
                 </Card.Body>
               </Card>

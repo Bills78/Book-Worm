@@ -44,6 +44,7 @@ function AddBook() {
       ...prevState,
       [name]: value
     }));
+    console.log(book)
   };
 
   function handleSubmitBook() {

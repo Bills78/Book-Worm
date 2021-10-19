@@ -25,6 +25,7 @@ function PageUpdate(props) {
               onChange={handleChange}
               defaultValue={book.current}
               type="text" 
+              pattern="[0-9]*"
               name="current"
               required
             />

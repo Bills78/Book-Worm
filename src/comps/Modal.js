@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function PopUp(props) {
-  const { HandleSubmitBook, handleChange, book, onHide } = props
+  const { HandleSubmitBook, handleChange, book, onHide } = props;
 
   return (
     <Modal
@@ -41,6 +41,7 @@ function PopUp(props) {
               onChange={handleChange}
               defaultValue={book.pages}
               type="text" 
+              pattern="[0-9]*"
               name="pages"
               required
             />
@@ -49,6 +50,7 @@ function PopUp(props) {
               onChange={handleChange}
               defaultValue={book.current}
               type="text" 
+              pattern="[0-9]*"
               name="current"
               required
             />

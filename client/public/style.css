@@ -1,0 +1,68 @@
+*,
+input.form-control {
+  background-color:#F5F3F6;
+}
+
+nav.navbar.navbar-expand-xl.navbar-dark,
+.container-xl,
+.navbar-brand,
+span.navbar-toggler-icon,
+.navbar-collapse.collapse,
+.nav-link,
+.book-btns,
+.card-body,
+.card-title,
+.card-text,
+.fade.modal.show,
+.modal-dialog.modal-lg.modal-dialog-centered,
+button.navbar-toggler.collapsed,
+div.navbar-nav {
+  background-color: #610808;
+}
+
+.add-book,
+.book-btns {
+  margin-top: 1em;
+}
+
+.book-btns,
+h5.card-header,
+.card-title,
+.card-text,
+button.btn.btn-primary,
+button.btn.btn-danger,
+button.btn.btn-success {
+  color: #bdbdbd
+}
+
+h5.card-header,
+button.btn.btn-primary,
+button.btn.btn-danger,
+button.btn.btn-success {
+  background-color: #0E0052;
+  border-color: #0E0052;
+}
+
+.books {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em auto;
+  max-width: 1000px;
+}
+
+.card {
+  margin: 1em;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+input.form-control {
+  margin-bottom: 1em;
+}
+
+svg {
+  color: black;
+}
